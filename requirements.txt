@@ -1,5 +1,6 @@
-flask
+torch==2.0.1+cpu
+transformers==4.30.2
+sentence-transformers==2.2.2
 scikit-learn
-sentence-transformers
-joblib
+flask
 gdown
