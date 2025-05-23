@@ -14,28 +14,27 @@ encoder_id = "1jseiOszY07Kn3FFOOBAhbt9OeMcuE5zF"
 model_path = "sentiment_model.pkl"
 encoder_path = "text_encoder.pkl"
 
-# Download if missing
+# Download model if not already present
 if not os.path.exists(model_path):
-    print("Downloading sentiment model...")
-    gdown.download(f"https://drive.google.com/uc?id={model_id}", model_path, quiet=False, use_cookies=False)
+    print("⬇️ Downloading sentiment model...")
+    gdown.download(f"https://drive.google.com/uc?id={model_id}", model_path, quiet=False)
 
 if not os.path.exists(encoder_path):
-    print("Downloading text encoder...")
-    gdown.download(f"https://drive.google.com/uc?id={encoder_id}", encoder_path, quiet=False, use_cookies=False)
+    print("⬇️ Downloading text encoder...")
+    gdown.download(f"https://drive.google.com/uc?id={encoder_id}", encoder_path, quiet=False)
 
 # Load models
+print("✅ Loading models...")
 classifier = joblib.load(model_path)
 encoder = joblib.load(encoder_path)
 
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
-
     if not data or 'text' not in data:
         return jsonify({'error': 'Missing \"text\" in request'}), 400
 
     input_text = data['text']
-
     encoded = encoder.encode([input_text])
     pred = classifier.predict(encoded)[0]
     proba = max(classifier.predict_proba(encoded)[0])
@@ -45,8 +44,7 @@ def predict():
         'confidence': round(float(proba), 2)
     })
 
-print("✅ Starting Flask app from entrypoint...")
-port = int(os.environ.get("PORT", 5000))
-app.run(host='0.0.0.0', port=port)
-
-
+if __name__ == '__main__':
+    print("🚀 Starting Flask server...")
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
