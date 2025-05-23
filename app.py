@@ -45,8 +45,8 @@ def predict():
         'confidence': round(float(proba), 2)
     })
 
-if __name__ == '__main__':
-    print("✅ Starting Flask app...")
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+print("✅ Starting Flask app from entrypoint...")
+port = int(os.environ.get("PORT", 5000))
+app.run(host='0.0.0.0', port=port)
+
 
