@@ -17,11 +17,11 @@ encoder_path = "text_encoder.pkl"
 # Download if missing
 if not os.path.exists(model_path):
     print("Downloading sentiment model...")
-    gdown.download(f"https://drive.google.com/uc?id={model_id}", model_path, quiet=False)
+    gdown.download(f"https://drive.google.com/uc?id={model_id}", model_path, quiet=False, use_cookies=False)
 
 if not os.path.exists(encoder_path):
     print("Downloading text encoder...")
-    gdown.download(f"https://drive.google.com/uc?id={encoder_id}", encoder_path, quiet=False)
+    gdown.download(f"https://drive.google.com/uc?id={encoder_id}", encoder_path, quiet=False, use_cookies=False)
 
 # Load models
 classifier = joblib.load(model_path)
