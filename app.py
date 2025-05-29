@@ -9,7 +9,7 @@ app = Flask(__name__)
 # Load models from local files
 print("🔁 Loading models...")
 classifier = joblib.load("sentiment_model.pkl")
-encoder = SentenceTransformer("sentiment_model")
+encoder = SentenceTransformer("all-MiniLM-L6-v2")
 
 @app.route('/predict', methods=['POST'])
 def predict():
